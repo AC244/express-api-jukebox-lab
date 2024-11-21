@@ -3,7 +3,7 @@ const router = express.Router()
 const Track = require('../models/track')
 
 // CREATE a track
-router.post('/tracks', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { title, artist } = req.body
     const newTrack = await Track.create({ title, artist })
@@ -14,7 +14,7 @@ router.post('/tracks', async (req, res) => {
 })
 
 // all tracks
-router.get('/tracks', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const tracks = await Track.find()
     res.status(200).json(tracks)
@@ -24,7 +24,7 @@ router.get('/tracks', async (req, res) => {
 })
 
 // single track by ID
-router.get('/tracks/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const track = await Track.findById(req.params.id)
     if (!track) return res.status(404).json({ error: 'Track not found' })
@@ -35,7 +35,7 @@ router.get('/tracks/:id', async (req, res) => {
 })
 
 // UPDATE a track
-router.put('/tracks/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const { title, artist } = req.body;
     const updatedTrack = await Track.findByIdAndUpdate(
@@ -51,7 +51,7 @@ router.put('/tracks/:id', async (req, res) => {
 })
 
 // DELETE a track
-router.delete('/tracks/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const deletedTrack = await Track.findByIdAndDelete(req.params.id)
     if (!deletedTrack) return res.status(404).json({ error: 'Track not found' })
